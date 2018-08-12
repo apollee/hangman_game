@@ -7,3 +7,6 @@ The game is played just like the classic hangman game everyone used to play in s
 ## Things that I inted to had to the game
 - Category of the secret word
 - Option to guess the entire word
+
+## Note about the amount of secret words
+Right now the amount of secret words is very limited for debugging purposes but as soon as the game reaches its final version more words will be added.
