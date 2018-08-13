@@ -11,7 +11,7 @@ def game():
     """Main function that runs the game"""
     print("You're about to start playing hangman, I hope you're ready!")
     name = input("Before we start please tell me your name\n")
-    print("Now that I know your name lets get started. Please remember that your guess must consist of only a letter.")
+    print("Now that I know your name lets get started. Please remember that your guess must consist of only a letter or the number 1 if you intend to guess the entire word.")
 
     current_try = 0
     max_tries = 6
@@ -21,14 +21,14 @@ def game():
 
         while flag_guess != 1:
             letter_val = validate_guess()
-            if letter_val == "try":
+            if letter_val == '1': #if the user pretends to guess the entire word
                 try_guess(name)
                 flag_guess = 1
             else:
                 final_guess = used_letters(letter_val)
                 flag_guess = 1
 
-        if not letter_in_word(final_guess):
+        if letter_val == '1' or not letter_in_word(final_guess):
             current_try += 1
             tries_left = max_tries - current_try
             print("Bad luck, wrong guess. You've got " + str(tries_left) + " tries left.")
@@ -66,7 +66,10 @@ def used_letters(letter):
 def validate_guess():
     """Validates the guess done by the player and allows him to do another
     guess if the one he did was invalid"""
-    letter_inval = input("Insert your guess:\n")
+    letter_inval = input("Insert your guess or the number 1:\n")
+    if letter_inval == '1':
+        return letter_inval
+
     while len(letter_inval) > 1 or not letter_inval.isalpha(): #or letter_invalid != "try":
         #esta a ver a primeira codicao e sai logo
         letter_inval = input("Thats an invalid guess, please insert a new one \n")
@@ -95,9 +98,10 @@ def current_word(name):
 
 def try_guess(name):
     """Allows player to guess the entire word"""
-    final_word = input("So you think you know the secret word? Go ahead and do your guess:")
+    final_word = input("So you think you know the secret word? Go ahead and do your guess: ")
     if final_word == secret_word:
         print("You won " + name + ", congratulations!")
+        exit()
 
 
 def hangman_graphic(guess):
