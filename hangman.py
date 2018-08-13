@@ -11,8 +11,7 @@ def game():
     """Main function that runs the game"""
     print("You're about to start playing hangman, I hope you're ready!")
     name = input("Before we start please tell me your name\n")
-    print("Now that I know your name lets get started. Please remember that \
-    your guess must consist of only a letter")
+    print("Now that I know your name lets get started. Please remember that your guess must consist of only a letter.")
 
     current_try = 0
     max_tries = 6
@@ -22,14 +21,17 @@ def game():
 
         while flag_guess != 1:
             letter_val = validate_guess()
-            final_guess = used_letters(letter_val)
-            flag_guess = 1
+            if letter_val == "try":
+                try_guess(name)
+                flag_guess = 1
+            else:
+                final_guess = used_letters(letter_val)
+                flag_guess = 1
 
         if not letter_in_word(final_guess):
             current_try += 1
             tries_left = max_tries - current_try
-            print("Bad luck, wrong guess. You've got " + str(tries_left) + " \
-            tries left.")
+            print("Bad luck, wrong guess. You've got " + str(tries_left) + " tries left.")
             hangman_graphic(current_try)
         else:
             print("That was a great guess!")
@@ -42,7 +44,7 @@ def game():
 
 
 def secret_word_f():
-    """Contains the list of possible words to be used as the secret word and \
+    """Contains the list of possible words to be used as the secret word and
     chooses randomly one of them to be the secret word"""
     list_words = ['humanity', 'television', 'pokemon', 'command', 'mechanical',
     'parrot', 'surprise', 'family', 'banana', 'character']
@@ -52,21 +54,21 @@ def secret_word_f():
 
 
 def used_letters(letter):
-    """Verifies if the user as already done that guess before and if so allows \
-    him to do another guess. The new guess is then added to the list of used \
+    """Verifies if the user as already done that guess before and if so allows
+    him to do another guess. The new guess is then added to the list of used
     guesses"""
     while letter in list_used:
         letter = input("You have already choosen this letter, try another one!\n")
-
     list_used.append(letter)
     return letter
 
 
 def validate_guess():
-    """Validates the guess done by the player and allows him to do another \
+    """Validates the guess done by the player and allows him to do another
     guess if the one he did was invalid"""
     letter_inval = input("Insert your guess:\n")
-    while len(letter_inval) > 1 or not letter_inval.isalpha():
+    while len(letter_inval) > 1 or not letter_inval.isalpha(): #or letter_invalid != "try":
+        #esta a ver a primeira codicao e sai logo
         letter_inval = input("Thats an invalid guess, please insert a new one \n")
 
     return letter_inval
@@ -88,8 +90,15 @@ def current_word(name):
 
     print("\n")
     if not missing:
-        print("You won " + name +", congratulations!")
+        print("You won " + name + ", congratulations!")
         exit()
+
+def try_guess(name):
+    """Allows player to guess the entire word"""
+    final_word = input("So you think you know the secret word? Go ahead and do your guess:")
+    if final_word == secret_word:
+        print("You won " + name + ", congratulations!")
+
 
 def hangman_graphic(guess):
     """Draws the current state of the hangman"""
