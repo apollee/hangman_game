@@ -9,4 +9,4 @@ Right now the amount of secret words is very limited for debugging purposes but 
 
 ## Things that I inted to had to the game
 - Category of the secret word
-- ~~Option to guess the entire word~~   **done**
+- ~~Option to guess the entire word~~     **done**
