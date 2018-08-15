@@ -13,7 +13,7 @@ def game():
     name = input("Before we start please tell me your name\n")
     print("Now that I know your name lets get started. Please remember that "\
     "your guess must consist of only a letter or the number 1 if you intend" \
-    "to guess the entire word.")
+    " to guess the entire word.")
 
     current_try = 0
     max_tries = 6
